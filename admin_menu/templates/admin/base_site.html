@@ -2,7 +2,15 @@
 
 {% load static i18n custom_admin_menu custom_admin_logo custom_admin_css %}
 
-{% block title %}{{ title }} | {{ site_title|default:_('Django site admin') }}{% endblock %}
+{% block title %}
+{{ title }} | {{ site_title|default:_('Django site admin') }}
+
+{% get_custom_favicon as favicon %}
+{% if favicon %}
+  <link rel="shortcut icon" type="image/png" href="{% static get_custom_favicon %}"/>
+{% endif %}
+
+{% endblock %}
 
 {% block blockbots %}
     {{ block.super }}
@@ -22,12 +30,12 @@
             <ul>
                 {% for title, item in menu.items %}
                 <li class="{% if item.active %}active{% endif %}{% if item.children|length > 1 %} has-child{% endif %}">
-                    <a href="{{ item.url }}">{{ item.title }} {% if item.children|length > 1 %}<span class="arrow"></span>{% endif %}</a>
+                    <a href="{{ item.url }}" class="{% if item.icon_class %}{{item.icon_class}}{% endif %}">{{ item.title }} {% if item.children|length > 1 %}<span class="arrow"></span>{% endif %}</a>
 
                     {% if item.children|length > 1 %}
                     <ul>
                         {% for sub in item.children %}
-                            <li><a href="{{ sub.url }}">{{ sub.title }}</a></li>
+                            <li><a href="{{ sub.url }}" class="{% if sub.icon_class %}{{sub.icon_class}}{% endif %}">{{ sub.title }}</a></li>
                         {% endfor %}
                     </ul>
                     {% endif %}
@@ -44,7 +52,7 @@
         <div id="secondary-nav">
             <ul>
             {% for sub in item.children %}
-                <li class="{% if sub.active %}active{% endif %}"><a href="{{ sub.url }}">{{ sub.title }}</a></li>
+                <li class="{% if sub.active %}active{% endif %}"><a href="{{ sub.url }}" class="{% if sub.icon_class %}{{sub.icon_class}}{% endif %}">{{ sub.title }}</a></li>
             {% endfor %}
             </ul>
         </div>

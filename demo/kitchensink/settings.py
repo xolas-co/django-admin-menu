@@ -86,7 +86,6 @@ DATABASES = {
 # https://docs.djangoproject.com/en/1.10/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
-
 ]
 
 # Internationalization
@@ -108,6 +107,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 ADMIN_LOGO = 'logo.png'
+ADMIN_FAVICON = 'favicon.png'
 
 ADMIN_STYLE = {
     'primary-color': '#2B3746',
